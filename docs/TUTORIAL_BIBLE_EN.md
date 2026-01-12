@@ -330,10 +330,10 @@ If a verse or book is not found, the API returns an empty verses array:
 ### 1. Daily Verse Application
 
 ```javascript
-// Display a random verse from Proverbs
+// Display a random verse from Proverbs (simplified example)
 async function getDailyVerse() {
   const chapter = Math.floor(Math.random() * 31) + 1; // Proverbs has 31 chapters
-  const verse = Math.floor(Math.random() * 10) + 1;
+  const verse = Math.floor(Math.random() * 35) + 1; // Most chapters have at least 35 verses
   
   const response = await fetch(
     `http://localhost:8080/en/kjv/Proverbs/${chapter}/${verse}`
@@ -346,6 +346,8 @@ async function getDailyVerse() {
       text: data.verses[0].text
     };
   }
+  // If verse doesn't exist, try verse 1 as fallback
+  return getDailyVerse(); // Retry with a different random selection
 }
 ```
 
@@ -369,11 +371,18 @@ def quiz_verse(translation, book, chapter, verse):
 
 ```python
 def get_reading_plan_day(day_number):
-    """Get Bible reading for a specific day (example: Genesis 1-50 over 50 days)"""
+    """Get entire chapter for a specific day reading plan
+    
+    Example: Read one chapter of Genesis per day (Genesis has 50 chapters)
+    This fetches the full chapter by requesting a large verse range.
+    The API will return only verses that exist.
+    """
     chapter = day_number
-    verses = get_verse_range('kjv', 'Genesis', str(chapter), '1', '50')
+    # Request verses 1-999 to get the entire chapter (API returns only existing verses)
+    verses = get_verse_range('kjv', 'Genesis', str(chapter), '1', '999')
     
     print(f"Day {day_number} - Genesis {chapter}")
+    print(f"Total verses: {len(verses)}\n")
     for verse in verses:
         print(f"{verse['number']}. {verse['text']}\n")
 ```
