@@ -13,6 +13,10 @@ Features:
 - Automatic generation of static Swagger docs (docs/index.html + docs/openapi.json)
 - Ready for GitHub Pages deployment for documentation
 
+## Tutorials
+
+- **[Bible API Tutorial - English Versions](docs/TUTORIAL_BIBLE_EN.md)** - Complete guide with examples in JavaScript, Python, and cURL for using the English Bible translations (KJV, ASV)
+
 Folder Structure:
 
 bible-api/
@@ -51,6 +55,8 @@ Usage:
 
    - Swagger UI documentation:
      GET /docs/
+
+5. See the [Tutorial for English Bible Versions](docs/TUTORIAL_BIBLE_EN.md) for detailed examples and code samples.
 
 Hot-Reload:
 
