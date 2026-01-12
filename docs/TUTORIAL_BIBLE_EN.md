@@ -346,8 +346,15 @@ async function getDailyVerse() {
       text: data.verses[0].text
     };
   }
-  // If verse doesn't exist, try verse 1 as fallback
-  return getDailyVerse(); // Retry with a different random selection
+  // If verse doesn't exist, fall back to verse 1 of the chapter
+  const fallbackResponse = await fetch(
+    `http://localhost:8080/en/kjv/Proverbs/${chapter}/1`
+  );
+  const fallbackData = await fallbackResponse.json();
+  return {
+    reference: `Proverbs ${chapter}:1`,
+    text: fallbackData.verses[0].text
+  };
 }
 ```
 
